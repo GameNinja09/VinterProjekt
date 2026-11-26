@@ -10,21 +10,16 @@ spawna en nyckel i något av rummen
 gå runt från de olika rummen, men inte teleportera. A<->B<->C osv
 */
 
+
 using Raylib_cs;
 
+Char p1 = new(); 
 
-Color ground = new(67, 75, 94);
-Color wallcolor = new(28, 41, 71);
-Rectangle wall = new(0, 0, 50, 800);
+Room r1 = new();
 
 
-static void DrawRoom(Color ground, Rectangle wall, Color Wallcolor)
-{
-    Raylib.BeginDrawing();
-    Raylib.ClearBackground(ground);
-    Raylib.DrawRectangleRec(wall, Wallcolor);
-    Raylib.EndDrawing();
-}
+
+
 
 Raylib.InitWindow(1000, 800, "Dungeon crawler");
 Raylib.SetTargetFPS(60);
@@ -33,5 +28,39 @@ Raylib.SetTargetFPS(60);
 
 while (!Raylib.WindowShouldClose())
 {
-    DrawRoom(ground, wall, wallcolor);
+    Raylib.BeginDrawing();
+    r1.Draw();
+    p1.DrawChar();
+
+    Raylib.EndDrawing();
+}
+
+class Room
+{
+    Color ground = new(67, 75, 94);
+    Color Wallcolor = new(28, 41, 71);
+    Rectangle LeftWall = new(0, 0, 50, 800);
+    Rectangle RightWall = new(950, 0, 50, 800);
+    Rectangle TopWall = new(0, 0, 1000, 50);
+    Rectangle BottomWall = new(0, 750, 1000, 50);
+
+    public void Draw()
+    {
+        Raylib.ClearBackground(ground);
+        Raylib.DrawRectangleRec(LeftWall, Wallcolor);
+        Raylib.DrawRectangleRec(RightWall, Wallcolor);
+        Raylib.DrawRectangleRec(TopWall, Wallcolor);
+        Raylib.DrawRectangleRec(BottomWall, Wallcolor);
+    }
+}
+
+class Char
+{
+    Color HFärg = new(145, 232, 23);
+    Rectangle Size = new(450, 350, 50, 50);
+
+    public void DrawChar()
+    {
+        Raylib.DrawRectangleRec(Size, HFärg);
+    }
 }
